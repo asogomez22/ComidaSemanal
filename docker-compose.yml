@@ -6,11 +6,20 @@ services:
     container_name: meal-plan
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "3000:3000"
+    environment:
+      # ⚠️  CAMBIA ESTA CONTRASEÑA antes de subir
+      - ADMIN_PASSWORD=cambiame123
+      - PORT=3000
+    volumes:
+      # Persistir los datos aunque el contenedor se reinicie
+      - meal-data:/app/data
     labels:
-      # Traefik labels (Dokploy los usa automáticamente)
       - "traefik.enable=true"
       - "traefik.http.routers.meal-plan.rule=Host(`meal.tudominio.com`)"
       - "traefik.http.routers.meal-plan.entrypoints=websecure"
       - "traefik.http.routers.meal-plan.tls.certresolver=letsencrypt"
-      - "traefik.http.services.meal-plan.loadbalancer.server.port=80"
+      - "traefik.http.services.meal-plan.loadbalancer.server.port=3000"
+
+volumes:
+  meal-data:
