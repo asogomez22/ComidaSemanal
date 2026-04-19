@@ -1,0 +1,16 @@
+services:
+  meal-plan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meal-plan
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    labels:
+      # Traefik labels (Dokploy los usa automáticamente)
+      - "traefik.enable=true"
+      - "traefik.http.routers.meal-plan.rule=Host(`meal.tudominio.com`)"
+      - "traefik.http.routers.meal-plan.entrypoints=websecure"
+      - "traefik.http.routers.meal-plan.tls.certresolver=letsencrypt"
+      - "traefik.http.services.meal-plan.loadbalancer.server.port=80"

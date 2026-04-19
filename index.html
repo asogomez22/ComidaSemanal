@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Semanal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:         #0c100e;
+      --bg2:        #141a16;
+      --bg3:        #1c2520;
+      --border:     rgba(180,160,100,0.12);
+      --border2:    rgba(180,160,100,0.25);
+      --gold:       #c9a84c;
+      --gold-dim:   rgba(201,168,76,0.15);
+      --gold-glow:  rgba(201,168,76,0.07);
+      --text:       #f0ead8;
+      --text-dim:   #8a9985;
+      --text-muted: #4a5548;
+      --green-tag:  #1e3229;
+      --green-text: #6abf8a;
+      --red-tag:    #2d1f1f;
+      --red-text:   #e07070;
+      --radius:     12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Karla', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND TEXTURE ───────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% -10%, rgba(201,168,76,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 100%, rgba(50,110,70,0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 0 16px 80px; }
+
+    /* ── HEADER ───────────────────────────────────── */
+    header {
+      padding: 36px 0 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-brand {
+      font-family: 'Karla', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .header-day-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .header-day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -1px;
+      color: var(--text);
+    }
+
+    .header-date {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-weight: 300;
+    }
+
+    .workout-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
+    .workout-badge::before { content: '⚡'; font-size: 10px; }
+
+    .rest-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(100,140,120,0.1);
+      border: 1px solid rgba(100,140,120,0.2);
+      color: #7ab898;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
+    .rest-badge::before { content: '🌿'; font-size: 10px; }
+
+    .day-totals {
+      display: flex;
+      gap: 20px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .day-total-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .day-total-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .day-total-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .day-total-item:first-child .day-total-value { color: var(--gold); }
+
+    /* ── DAY TABS ─────────────────────────────────── */
+    .tabs-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      padding: 16px 0 0;
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 0;
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex-shrink: 0;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: 'Karla', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .tab-btn:hover { color: var(--text-dim); background: var(--gold-glow); }
+
+    .tab-btn.active {
+      color: var(--gold);
+      background: var(--gold-dim);
+      border-color: var(--border2);
+      border-bottom-color: var(--bg);
+    }
+
+    .tab-btn.today-tab::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    /* ── MEALS ────────────────────────────────────── */
+    .meals-section { padding-top: 28px; }
+
+    .meal-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+      animation: slideUp 0.3s ease both;
+    }
+
+    .meal-card:hover { border-color: var(--border2); }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .meal-card:nth-child(1) { animation-delay: 0ms; }
+    .meal-card:nth-child(2) { animation-delay: 60ms; }
+    .meal-card:nth-child(3) { animation-delay: 120ms; }
+    .meal-card:nth-child(4) { animation-delay: 180ms; }
+    .meal-card:nth-child(5) { animation-delay: 240ms; }
+
+    .meal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px 10px;
+      gap: 12px;
+    }
+
+    .meal-left { display: flex; align-items: center; gap: 12px; }
+
+    .meal-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .meal-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .meal-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    .meal-kcal {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .meal-kcal span {
+      font-family: 'Karla', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-left: 2px;
+    }
+
+    .macros-bar {
+      display: flex;
+      gap: 8px;
+      padding: 0 18px 10px;
+    }
+
+    .macro-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .macro-p { background: rgba(106,191,138,0.12); color: #6abf8a; border: 1px solid rgba(106,191,138,0.2); }
+    .macro-c { background: rgba(100,160,220,0.12); color: #7ab4e0; border: 1px solid rgba(100,160,220,0.2); }
+    .macro-f { background: rgba(220,160,80,0.12);  color: #daa050; border: 1px solid rgba(220,160,80,0.2); }
+
+    .meal-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 18px;
+    }
+
+    .meal-items {
+      padding: 12px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .meal-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .meal-item::before {
+      content: '—';
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 11px;
+    }
+
+    /* ── NOTES ────────────────────────────────────── */
+    .day-note {
+      background: var(--gold-glow);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .day-note strong { color: var(--gold); }
+
+    /* ── TIPS SECTION ─────────────────────────────── */
+    .tips-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .tips-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .tip-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .tip-item:last-child { border-bottom: none; }
+
+    .tip-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gold);
+      flex-shrink: 0;
+      width: 20px;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 400px) {
+      .header-day { font-size: 44px; }
+      .day-totals { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="header-brand">Plan nutricional · Recomposición</div>
+    <div class="header-day-row">
+      <div class="header-day" id="hdr-day">—</div>
+      <div class="header-date" id="hdr-date">—</div>
+    </div>
+    <div id="hdr-badge"></div>
+    <div class="day-totals" id="hdr-totals"></div>
+  </header>
+
+  <div class="tabs-wrapper">
+    <div class="tabs" id="tabs-bar"></div>
+  </div>
+
+  <main class="meals-section" id="meals-container"></main>
+
+  <section class="tips-section">
+    <div class="tips-title">Reglas clave</div>
+    <div class="tip-item"><span class="tip-num">1</span><span>Pesa la comida las <strong style="color:var(--text)">2 primeras semanas</strong> — luego ya calculas a ojo.</span></div>
+    <div class="tip-item"><span class="tip-num">2</span><span><strong style="color:var(--text)">Agua:</strong> mínimo 3.5–4 L/día con tu peso y entrenos.</span></div>
+    <div class="tip-item"><span class="tip-num">3</span><span><strong style="color:var(--text)">Creatina:</strong> 5 g/día. El suplemento con más evidencia para recomp. ~15€ para 4-5 meses.</span></div>
+    <div class="tip-item"><span class="tip-num">4</span><span>Si no bajas en 2 semanas → recorta 200 kcal (menos arroz/pan). Si bajas más de 1 kg/semana → sube 200 kcal.</span></div>
+    <div class="tip-item"><span class="tip-num">5</span><span>Pésate 3 veces/semana en ayunas y usa la <strong style="color:var(--text)">media</strong>. Mide cintura 1 vez/semana.</span></div>
+  </section>
+
+  <footer>2800 kcal · 220g proteína · 270g carbos · 80g grasa</footer>
+
+</div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const DAYS = [
+  {
+    key: 'domingo',
+    label: 'Domingo',
+    short: 'Dom',
+    workout: false,
+    note: 'Día de descanso — carbos reducidos. Aprovecha para cocinar batch de la semana.',
+    kcal: 2600, protein: 220, carbs: 240, fat: 78,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~8:00', kcal: 600, p: 45, c: 60, f: 18,
+        items: ['Revuelto de 4 huevos con espinacas y queso','2 rebanadas de pan integral','1 pieza de fruta'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 60, c: 90, f: 20,
+        items: ['Arroz (80 g en crudo) con pollo y marisco','Paella o arroz a la marinera','Ensalada verde'] },
+      { icon: '🍎', name: 'Merienda', time: '~17:00', kcal: 350, p: 35, c: 25, f: 14,
+        items: ['200 g yogur griego natural 0%','1 manzana','20 g nueces'] },
+      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 600, p: 55, c: 25, f: 20,
+        items: ['200 g ternera plancha','Verduras asadas variadas (pimiento, cebolla, calabacín)','½ aguacate con limón'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 25, c: 8, f: 6,
+        items: ['250 g requesón o queso fresco batido','Canela al gusto'] }
+    ]
+  },
+  {
+    key: 'lunes',
+    label: 'Lunes',
+    short: 'Lun',
+    workout: true,
+    note: 'Día de entreno — carbos completos. Ajusta la merienda como pre-entreno si entrenas a última hora.',
+    kcal: 2800, protein: 220, carbs: 275, fat: 80,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 45, c: 85, f: 15,
+        items: ['80 g avena en copos + 300 ml leche','30 g proteína en polvo','1 plátano','15 g crema de cacahuete natural'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 800, p: 60, c: 85, f: 18,
+        items: ['180 g pechuga de pollo a la plancha','100 g arroz basmati (peso crudo)','Ensalada grande con AOVE','1 kiwi'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 35, c: 40, f: 12,
+        items: ['200 g yogur griego 0%','40 g avena','100 g arándanos','20 g nueces'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 55, c: 35, f: 22,
+        items: ['200 g merluza al horno','300 g boniato asado','Brócoli al vapor con AOVE y limón'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 30, c: 8, f: 6,
+        items: ['250 g requesón','Canela','10 almendras'] }
+    ]
+  },
+  {
+    key: 'martes',
+    label: 'Martes',
+    short: 'Mar',
+    workout: true,
+    note: 'Segundo día de entreno. Las lentejas de la comida te dan energía sostenida para el entreno de tarde.',
+    kcal: 2800, protein: 220, carbs: 270, fat: 80,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 600, p: 45, c: 50, f: 22,
+        items: ['Tortilla de 4 huevos','80 g pechuga de pavo','2 rebanadas de pan integral','½ aguacate'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 55, c: 90, f: 20,
+        items: ['Lentejas con verduras (250 g cocidas)','150 g ternera picada magra','Ensalada verde con AOVE'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 40, c: 45, f: 8,
+        items: ['Batido: 40 g proteína en polvo','300 ml leche','1 plátano','30 g avena'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 60, c: 35, f: 22,
+        items: ['200 g salmón a la plancha','250 g patata al horno','Espinacas salteadas con ajo y AOVE'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 25, c: 10, f: 8,
+        items: ['200 g yogur griego 0%','20 g crema de cacahuete natural'] }
+    ]
+  },
+  {
+    key: 'miercoles',
+    label: 'Miércoles',
+    short: 'Mié',
+    workout: false,
+    note: 'Día de descanso — recorta carbos. Sin arroz ni pan en cena. Proteína alta igual.',
+    kcal: 2600, protein: 225, carbs: 230, fat: 76,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~8:00', kcal: 550, p: 50, c: 35, f: 20,
+        items: ['3 huevos revueltos con queso','80 g jamón de pavo','1 tomate natural','1 rebanada pan integral'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 750, p: 65, c: 65, f: 18,
+        items: ['200 g pollo al curry con especias','80 g arroz basmati (crudo)','Calabacín y pimiento a la plancha'] },
+      { icon: '🍎', name: 'Merienda', time: '~17:00', kcal: 350, p: 35, c: 25, f: 12,
+        items: ['200 g yogur griego 0%','1 manzana','20 g almendras'] },
+      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 650, p: 55, c: 20, f: 26,
+        items: ['2 latas atún al natural (160 g escurrido)','Ensalada: tomate, pepino, cebolla, aceitunas','½ aguacate','30 g queso curado — AOVE'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 25, c: 8, f: 6,
+        items: ['250 g requesón','Canela al gusto'] }
+    ]
+  },
+  {
+    key: 'jueves',
+    label: 'Jueves',
+    short: 'Jue',
+    workout: true,
+    note: 'Tercer día de entreno. Sándwich de pavo como pre-entreno si vas al gym por la tarde.',
+    kcal: 2800, protein: 220, carbs: 275, fat: 80,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 45, c: 55, f: 22,
+        items: ['3 rebanadas pan integral','½ aguacate','3 huevos pochados','80 g salmón ahumado'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 60, c: 90, f: 18,
+        items: ['180 g solomillo de cerdo plancha','100 g arroz (crudo)','Ensalada verde con AOVE','1 naranja'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 35, c: 45, f: 10,
+        items: ['Sándwich: 2 rebanadas pan integral','100 g pavo fiambre','Queso fresco + tomate','1 plátano'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 55, c: 70, f: 16,
+        items: ['200 g pechuga de pollo plancha','100 g pasta integral con tomate natural','Rúcula con AOVE'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 30, c: 8, f: 4,
+        items: ['250 g requesón','Arándanos frescos o congelados'] }
+    ]
+  },
+  {
+    key: 'viernes',
+    label: 'Viernes',
+    short: 'Vie',
+    workout: true,
+    note: 'Cuarto día de entreno. Los garbanzos con bacalao te dejan tieso de proteína en la comida.',
+    kcal: 2800, protein: 220, carbs: 270, fat: 80,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 50, c: 70, f: 16,
+        items: ['Bowl: 200 g yogur griego 0%','50 g avena + 30 g proteína en polvo','Fresas frescas','15 g crema de cacahuete'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 60, c: 90, f: 18,
+        items: ['Garbanzos con espinacas y bacalao (potaje)','200 g bacalao desalado','Ensalada verde','1 fruta de temporada'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 40, c: 35, f: 12,
+        items: ['200 g pechuga de pollo fiambre','2 rebanadas pan integral','Tomate natural','AOVE'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 55, c: 40, f: 22,
+        items: ['200 g atún fresco a la plancha','300 g boniato asado','Brócoli y champiñones salteados'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 25, c: 10, f: 8,
+        items: ['200 g yogur griego 0%','20 g almendras'] }
+    ]
+  },
+  {
+    key: 'sabado',
+    label: 'Sábado',
+    short: 'Sáb',
+    workout: true,
+    note: 'Comida del sábado es flexible — si comes fuera, prioriza carne/pescado a la brasa, evita fritos. Mantén la proteína.',
+    kcal: 2750, protein: 215, carbs: 260, fat: 80,
+    meals: [
+      { icon: '☀️', name: 'Desayuno', time: '~8:30', kcal: 650, p: 45, c: 50, f: 24,
+        items: ['Tortilla 4 huevos con queso','80 g jamón york','2 tostadas integrales con tomate triturado'] },
+      { icon: '🍽️', name: 'Comida (flexible)', time: '~14:00', kcal: 900, p: 55, c: 80, f: 28,
+        items: ['Ej: carne a la brasa 200 g','Patata asada o arroz','Ensalada','1 copa de vino si quieres — sin pasarse'] },
+      { icon: '⚡', name: 'Merienda', time: '~17:30', kcal: 350, p: 30, c: 35, f: 10,
+        items: ['Batido proteína + 1 plátano','15 g crema de cacahuete'] },
+      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 650, p: 55, c: 30, f: 20,
+        items: ['200 g merluza al horno con limón y ajo','200 g patata','Espárragos a la plancha'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 30, c: 8, f: 4,
+        items: ['250 g requesón'] }
+    ]
+  }
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+const jsDay = new Date().getDay(); // 0=Sun ... 6=Sat
+let activeDayIndex = jsDay; // DAYS array is ordered Sun→Sat
+
+// ─── DOM REFS ─────────────────────────────────────────────────────────────────
+const hdrDay      = document.getElementById('hdr-day');
+const hdrDate     = document.getElementById('hdr-date');
+const hdrBadge    = document.getElementById('hdr-badge');
+const hdrTotals   = document.getElementById('hdr-totals');
+const tabsBar     = document.getElementById('tabs-bar');
+const mealsContainer = document.getElementById('meals-container');
+
+// ─── DATE ─────────────────────────────────────────────────────────────────────
+function formatDate(d) {
+  return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+// ─── RENDER TABS ──────────────────────────────────────────────────────────────
+function renderTabs() {
+  tabsBar.innerHTML = '';
+  DAYS.forEach((day, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === jsDay ? ' today-tab' : '') + (i === activeDayIndex ? ' active' : '');
+    btn.textContent = day.short;
+    btn.title = day.label;
+    btn.addEventListener('click', () => { activeDayIndex = i; renderAll(); });
+    tabsBar.appendChild(btn);
+  });
+}
+
+// ─── RENDER HEADER ────────────────────────────────────────────────────────────
+function renderHeader() {
+  const day = DAYS[activeDayIndex];
+  const isToday = activeDayIndex === jsDay;
+  hdrDay.textContent = day.label;
+  hdrDate.textContent = isToday ? formatDate(new Date()) : '— ver día';
+  hdrBadge.innerHTML = day.workout
+    ? '<div class="workout-badge">Día de entreno</div>'
+    : '<div class="rest-badge">Día de descanso</div>';
+  hdrTotals.innerHTML = `
+    <div class="day-total-item"><div class="day-total-value">${day.kcal}</div><div class="day-total-label">kcal</div></div>
+    <div class="day-total-item"><div class="day-total-value">${day.protein}g</div><div class="day-total-label">Proteína</div></div>
+    <div class="day-total-item"><div class="day-total-value">${day.carbs}g</div><div class="day-total-label">Carbos</div></div>
+    <div class="day-total-item"><div class="day-total-value">${day.fat}g</div><div class="day-total-label">Grasa</div></div>
+  `;
+}
+
+// ─── RENDER MEALS ─────────────────────────────────────────────────────────────
+function renderMeals() {
+  const day = DAYS[activeDayIndex];
+  let html = '';
+
+  if (day.note) {
+    html += `<div class="day-note">${day.note}</div>`;
+  }
+
+  day.meals.forEach(meal => {
+    html += `
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-left">
+            <div class="meal-icon">${meal.icon}</div>
+            <div>
+              <div class="meal-name">${meal.name}</div>
+              <div class="meal-time">${meal.time}</div>
+            </div>
+          </div>
+          <div class="meal-kcal">${meal.kcal}<span>kcal</span></div>
+        </div>
+        <div class="macros-bar">
+          <span class="macro-pill macro-p">P ${meal.p}g</span>
+          <span class="macro-pill macro-c">C ${meal.c}g</span>
+          <span class="macro-pill macro-f">G ${meal.f}g</span>
+        </div>
+        <div class="meal-divider"></div>
+        <div class="meal-items">
+          ${meal.items.map(i => `<div class="meal-item">${i}</div>`).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  mealsContainer.innerHTML = html;
+}
+
+// ─── RENDER ALL ───────────────────────────────────────────────────────────────
+function renderAll() {
+  renderHeader();
+  renderTabs();
+  renderMeals();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderAll();
+</script>
+</body>
+</html>
