@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -447,31 +448,33 @@
     <div class="tip-item"><span class="tip-num">5</span><span>Pésate 3 veces/semana en ayunas y usa la <strong style="color:var(--text)">media</strong>. Mide cintura 1 vez/semana.</span></div>
   </section>
 
-  <footer>2800 kcal · 220g proteína · 270g carbos · 80g grasa</footer>
+  <footer>Promedio semanal · 2720 kcal · 222g proteína · 253g carbos · 80g grasa</footer>
 
 </div>
 
 <script>
 // ─── DATA ─────────────────────────────────────────────────────────────────────
+const PLAN_START_DATE = new Date(2026, 3, 27); // Lunes 27 de abril de 2026
+
 const DAYS = [
   {
     key: 'domingo',
     label: 'Domingo',
     short: 'Dom',
     workout: false,
-    note: 'Día de descanso — carbos reducidos. Aprovecha para cocinar batch de la semana.',
-    kcal: 2600, protein: 220, carbs: 240, fat: 78,
+    note: 'Cierre de semana y preparación. Mantén proteína alta, cocina bases para lunes y evita meter calorías líquidas innecesarias.',
+    kcal: 2550, protein: 220, carbs: 210, fat: 82,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~8:00', kcal: 600, p: 45, c: 60, f: 18,
-        items: ['Revuelto de 4 huevos con espinacas y queso','2 rebanadas de pan integral','1 pieza de fruta'] },
-      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 60, c: 90, f: 20,
-        items: ['Arroz (80 g en crudo) con pollo y marisco','Paella o arroz a la marinera','Ensalada verde'] },
-      { icon: '🍎', name: 'Merienda', time: '~17:00', kcal: 350, p: 35, c: 25, f: 14,
-        items: ['200 g yogur griego natural 0%','1 manzana','20 g nueces'] },
-      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 600, p: 55, c: 25, f: 20,
-        items: ['200 g ternera plancha','Verduras asadas variadas (pimiento, cebolla, calabacín)','½ aguacate con limón'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 25, c: 8, f: 6,
-        items: ['250 g requesón o queso fresco batido','Canela al gusto'] }
+      { icon: '☀️', name: 'Desayuno', time: '~9:00', kcal: 560, p: 45, c: 45, f: 20,
+        items: ['Tortilla de 2 huevos + 200 g claras con espinacas','2 rebanadas pan integral con tomate','1 kiwi'] },
+      { icon: '🍽️', name: 'Comida', time: '~14:00', kcal: 820, p: 65, c: 70, f: 24,
+        items: ['220 g pollo al horno con especias','80 g arroz basmati en crudo','Verduras asadas con 10 g AOVE'] },
+      { icon: '🍎', name: 'Merienda', time: '~17:30', kcal: 330, p: 35, c: 22, f: 10,
+        items: ['250 g yogur griego 0%','1 manzana','15 g nueces'] },
+      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 640, p: 55, c: 55, f: 22,
+        items: ['220 g dorada al horno','250 g patata cocida','Ensalada de pepino, tomate y aguacate'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 20, c: 18, f: 6,
+        items: ['200 g queso fresco batido 0%','Fresas','Canela'] }
     ]
   },
   {
@@ -479,19 +482,19 @@ const DAYS = [
     label: 'Lunes',
     short: 'Lun',
     workout: true,
-    note: 'Día de entreno — carbos completos. Ajusta la merienda como pre-entreno si entrenas a última hora.',
-    kcal: 2800, protein: 220, carbs: 275, fat: 80,
+    note: 'Empieza la semana con carbohidratos limpios alrededor del entreno. Si entrenas por la mañana, intercambia desayuno y pre-entreno.',
+    kcal: 2820, protein: 225, carbs: 285, fat: 78,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 45, c: 85, f: 15,
-        items: ['80 g avena en copos + 300 ml leche','30 g proteína en polvo','1 plátano','15 g crema de cacahuete natural'] },
-      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 800, p: 60, c: 85, f: 18,
-        items: ['180 g pechuga de pollo a la plancha','100 g arroz basmati (peso crudo)','Ensalada grande con AOVE','1 kiwi'] },
-      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 35, c: 40, f: 12,
-        items: ['200 g yogur griego 0%','40 g avena','100 g arándanos','20 g nueces'] },
-      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 55, c: 35, f: 22,
-        items: ['200 g merluza al horno','300 g boniato asado','Brócoli al vapor con AOVE y limón'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 30, c: 8, f: 6,
-        items: ['250 g requesón','Canela','10 almendras'] }
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 670, p: 50, c: 80, f: 16,
+        items: ['75 g avena con 300 ml leche semidesnatada','30 g proteína whey','1 plátano','10 g crema de cacahuete'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 820, p: 65, c: 90, f: 18,
+        items: ['220 g pechuga de pollo a la plancha','100 g arroz jazmín en crudo','Ensalada de rúcula, tomate y 10 g AOVE','1 naranja'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 420, p: 35, c: 50, f: 10,
+        items: ['250 g yogur griego 0%','45 g muesli simple','100 g frutos rojos','Miel, 10 g'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 710, p: 55, c: 55, f: 24,
+        items: ['220 g salmón a la plancha','280 g boniato asado','Brócoli con limón'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 20, c: 10, f: 10,
+        items: ['200 g requesón','15 g almendras','Canela'] }
     ]
   },
   {
@@ -499,19 +502,19 @@ const DAYS = [
     label: 'Martes',
     short: 'Mar',
     workout: true,
-    note: 'Segundo día de entreno. Las lentejas de la comida te dan energía sostenida para el entreno de tarde.',
-    kcal: 2800, protein: 220, carbs: 270, fat: 80,
+    note: 'Entreno con energía sostenida: legumbre al mediodía y cena alta en proteína para recuperar.',
+    kcal: 2800, protein: 225, carbs: 275, fat: 78,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 600, p: 45, c: 50, f: 22,
-        items: ['Tortilla de 4 huevos','80 g pechuga de pavo','2 rebanadas de pan integral','½ aguacate'] },
-      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 55, c: 90, f: 20,
-        items: ['Lentejas con verduras (250 g cocidas)','150 g ternera picada magra','Ensalada verde con AOVE'] },
-      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 40, c: 45, f: 8,
-        items: ['Batido: 40 g proteína en polvo','300 ml leche','1 plátano','30 g avena'] },
-      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 60, c: 35, f: 22,
-        items: ['200 g salmón a la plancha','250 g patata al horno','Espinacas salteadas con ajo y AOVE'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 25, c: 10, f: 8,
-        items: ['200 g yogur griego 0%','20 g crema de cacahuete natural'] }
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 620, p: 45, c: 65, f: 18,
+        items: ['3 huevos + 150 g claras revueltos','2 rebanadas pan integral','80 g pavo','1 pera'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 860, p: 60, c: 95, f: 20,
+        items: ['Lentejas con verduras, 320 g cocidas','170 g ternera magra','Ensalada verde con 10 g AOVE'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 410, p: 40, c: 50, f: 8,
+        items: ['Batido con 35 g proteína','300 ml leche semidesnatada','1 plátano','25 g avena'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 710, p: 60, c: 55, f: 24,
+        items: ['230 g merluza o lubina','260 g patata al horno','Espinacas salteadas con ajo'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 20, c: 10, f: 8,
+        items: ['200 g yogur griego 0%','20 g crema de cacahuete'] }
     ]
   },
   {
@@ -519,19 +522,19 @@ const DAYS = [
     label: 'Miércoles',
     short: 'Mié',
     workout: false,
-    note: 'Día de descanso — recorta carbos. Sin arroz ni pan en cena. Proteína alta igual.',
-    kcal: 2600, protein: 225, carbs: 230, fat: 76,
+    note: 'Descanso activo. Baja carbohidrato, sube volumen de verduras y deja una caminata suave si puedes.',
+    kcal: 2520, protein: 225, carbs: 185, fat: 82,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~8:00', kcal: 550, p: 50, c: 35, f: 20,
-        items: ['3 huevos revueltos con queso','80 g jamón de pavo','1 tomate natural','1 rebanada pan integral'] },
-      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 750, p: 65, c: 65, f: 18,
-        items: ['200 g pollo al curry con especias','80 g arroz basmati (crudo)','Calabacín y pimiento a la plancha'] },
-      { icon: '🍎', name: 'Merienda', time: '~17:00', kcal: 350, p: 35, c: 25, f: 12,
-        items: ['200 g yogur griego 0%','1 manzana','20 g almendras'] },
-      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 650, p: 55, c: 20, f: 26,
-        items: ['2 latas atún al natural (160 g escurrido)','Ensalada: tomate, pepino, cebolla, aceitunas','½ aguacate','30 g queso curado — AOVE'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 25, c: 8, f: 6,
-        items: ['250 g requesón','Canela al gusto'] }
+      { icon: '☀️', name: 'Desayuno', time: '~8:00', kcal: 560, p: 50, c: 35, f: 22,
+        items: ['3 huevos con champiñones','120 g pavo','1 tomate natural','1 rebanada pan integral'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 760, p: 65, c: 70, f: 20,
+        items: ['220 g pavo al curry suave','75 g arroz basmati en crudo','Calabacín y pimiento a la plancha'] },
+      { icon: '🍎', name: 'Merienda', time: '~17:00', kcal: 340, p: 35, c: 25, f: 10,
+        items: ['250 g queso fresco batido 0%','1 manzana','15 g almendras'] },
+      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 660, p: 55, c: 45, f: 24,
+        items: ['220 g atún fresco o 2 latas al natural','Ensalada grande con tomate, pepino y cebolla','1/2 aguacate','200 g patata cocida'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 20, c: 10, f: 6,
+        items: ['200 g requesón','Canela','Infusión'] }
     ]
   },
   {
@@ -539,18 +542,18 @@ const DAYS = [
     label: 'Jueves',
     short: 'Jue',
     workout: true,
-    note: 'Tercer día de entreno. Sándwich de pavo como pre-entreno si vas al gym por la tarde.',
-    kcal: 2800, protein: 220, carbs: 275, fat: 80,
+    note: 'Día de entreno. Pasta en la cena para recuperar si entrenas tarde; si entrenas temprano, pásala a la comida.',
+    kcal: 2820, protein: 220, carbs: 290, fat: 78,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 45, c: 55, f: 22,
-        items: ['3 rebanadas pan integral','½ aguacate','3 huevos pochados','80 g salmón ahumado'] },
-      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 60, c: 90, f: 18,
-        items: ['180 g solomillo de cerdo plancha','100 g arroz (crudo)','Ensalada verde con AOVE','1 naranja'] },
-      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 35, c: 45, f: 10,
-        items: ['Sándwich: 2 rebanadas pan integral','100 g pavo fiambre','Queso fresco + tomate','1 plátano'] },
-      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 55, c: 70, f: 16,
-        items: ['200 g pechuga de pollo plancha','100 g pasta integral con tomate natural','Rúcula con AOVE'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 30, c: 8, f: 4,
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 45, c: 70, f: 18,
+        items: ['3 tostadas integrales','1/2 aguacate','2 huevos + 150 g claras','80 g salmón ahumado'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 840, p: 60, c: 90, f: 20,
+        items: ['210 g solomillo de cerdo a la plancha','95 g arroz en crudo','Ensalada verde con 10 g AOVE','1 naranja'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 420, p: 35, c: 55, f: 8,
+        items: ['Sándwich integral con 130 g pavo','Queso fresco y tomate','1 plátano'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 760, p: 55, c: 65, f: 22,
+        items: ['220 g pechuga de pollo','95 g pasta integral con tomate natural','Rúcula con 5 g AOVE'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 150, p: 25, c: 10, f: 10,
         items: ['250 g requesón','Arándanos frescos o congelados'] }
     ]
   },
@@ -559,18 +562,18 @@ const DAYS = [
     label: 'Viernes',
     short: 'Vie',
     workout: true,
-    note: 'Cuarto día de entreno. Los garbanzos con bacalao te dejan tieso de proteína en la comida.',
-    kcal: 2800, protein: 220, carbs: 270, fat: 80,
+    note: 'Cuarto entreno. Comida potente pero digestiva, y cena sencilla para no llegar pesado al fin de semana.',
+    kcal: 2780, protein: 225, carbs: 270, fat: 80,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 650, p: 50, c: 70, f: 16,
-        items: ['Bowl: 200 g yogur griego 0%','50 g avena + 30 g proteína en polvo','Fresas frescas','15 g crema de cacahuete'] },
-      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 850, p: 60, c: 90, f: 18,
-        items: ['Garbanzos con espinacas y bacalao (potaje)','200 g bacalao desalado','Ensalada verde','1 fruta de temporada'] },
-      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 40, c: 35, f: 12,
-        items: ['200 g pechuga de pollo fiambre','2 rebanadas pan integral','Tomate natural','AOVE'] },
-      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 750, p: 55, c: 40, f: 22,
-        items: ['200 g atún fresco a la plancha','300 g boniato asado','Brócoli y champiñones salteados'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 25, c: 10, f: 8,
+      { icon: '☀️', name: 'Desayuno', time: '~7:30', kcal: 640, p: 50, c: 70, f: 16,
+        items: ['Bowl de 250 g yogur griego 0%','55 g avena + 30 g proteína','Fresas','10 g crema de cacahuete'] },
+      { icon: '🍽️', name: 'Comida', time: '~13:30', kcal: 840, p: 65, c: 85, f: 20,
+        items: ['Garbanzos con espinacas, 280 g cocidos','230 g bacalao desalado','Ensalada verde','1 fruta de temporada'] },
+      { icon: '⚡', name: 'Pre-entreno', time: '~17:00', kcal: 400, p: 40, c: 40, f: 10,
+        items: ['180 g pechuga de pollo fiambre','2 rebanadas pan integral','Tomate natural','5 g AOVE'] },
+      { icon: '🌙', name: 'Cena', time: '~21:00', kcal: 700, p: 50, c: 65, f: 26,
+        items: ['220 g atún fresco a la plancha','280 g boniato asado','Brócoli y champiñones salteados'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~23:00', kcal: 200, p: 20, c: 10, f: 8,
         items: ['200 g yogur griego 0%','20 g almendras'] }
     ]
   },
@@ -579,26 +582,25 @@ const DAYS = [
     label: 'Sábado',
     short: 'Sáb',
     workout: true,
-    note: 'Comida del sábado es flexible — si comes fuera, prioriza carne/pescado a la brasa, evita fritos. Mantén la proteína.',
-    kcal: 2750, protein: 215, carbs: 260, fat: 80,
+    note: 'Sábado flexible controlado. Si comes fuera, prioriza proteína a la brasa y usa patata, arroz o pan como carbo principal.',
+    kcal: 2750, protein: 215, carbs: 255, fat: 82,
     meals: [
-      { icon: '☀️', name: 'Desayuno', time: '~8:30', kcal: 650, p: 45, c: 50, f: 24,
-        items: ['Tortilla 4 huevos con queso','80 g jamón york','2 tostadas integrales con tomate triturado'] },
-      { icon: '🍽️', name: 'Comida (flexible)', time: '~14:00', kcal: 900, p: 55, c: 80, f: 28,
-        items: ['Ej: carne a la brasa 200 g','Patata asada o arroz','Ensalada','1 copa de vino si quieres — sin pasarse'] },
-      { icon: '⚡', name: 'Merienda', time: '~17:30', kcal: 350, p: 30, c: 35, f: 10,
-        items: ['Batido proteína + 1 plátano','15 g crema de cacahuete'] },
-      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 650, p: 55, c: 30, f: 20,
-        items: ['200 g merluza al horno con limón y ajo','200 g patata','Espárragos a la plancha'] },
-      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 30, c: 8, f: 4,
-        items: ['250 g requesón'] }
+      { icon: '☀️', name: 'Desayuno', time: '~8:30', kcal: 630, p: 45, c: 55, f: 22,
+        items: ['Tortilla de 3 huevos + 150 g claras','80 g jamón york','2 tostadas integrales con tomate triturado'] },
+      { icon: '🍽️', name: 'Comida flexible', time: '~14:00', kcal: 900, p: 55, c: 80, f: 30,
+        items: ['Carne o pescado a la brasa, 220-260 g','Patata asada, arroz o pan','Ensalada grande','1 copa de vino si apetece'] },
+      { icon: '⚡', name: 'Merienda', time: '~17:30', kcal: 360, p: 30, c: 40, f: 10,
+        items: ['Batido de proteína','1 plátano','15 g crema de cacahuete'] },
+      { icon: '🌙', name: 'Cena', time: '~20:30', kcal: 660, p: 55, c: 70, f: 16,
+        items: ['220 g merluza al horno con limón y ajo','250 g patata','Espárragos a la plancha'] },
+      { icon: '💤', name: 'Pre-sueño', time: '~22:30', kcal: 200, p: 30, c: 10, f: 4,
+        items: ['250 g requesón','Canela'] }
     ]
   }
 ];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
-const jsDay = new Date().getDay(); // 0=Sun ... 6=Sat
-let activeDayIndex = jsDay; // DAYS array is ordered Sun→Sat
+let activeDayIndex = 1; // Semana entrante: abrir en lunes
 
 // ─── DOM REFS ─────────────────────────────────────────────────────────────────
 const hdrDay      = document.getElementById('hdr-day');
@@ -613,12 +615,18 @@ function formatDate(d) {
   return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
+function getPlanDate(dayIndex) {
+  const date = new Date(PLAN_START_DATE);
+  date.setDate(PLAN_START_DATE.getDate() + (dayIndex === 0 ? 6 : dayIndex - 1));
+  return date;
+}
+
 // ─── RENDER TABS ──────────────────────────────────────────────────────────────
 function renderTabs() {
   tabsBar.innerHTML = '';
   DAYS.forEach((day, i) => {
     const btn = document.createElement('button');
-    btn.className = 'tab-btn' + (i === jsDay ? ' today-tab' : '') + (i === activeDayIndex ? ' active' : '');
+    btn.className = 'tab-btn' + (i === activeDayIndex ? ' active' : '');
     btn.textContent = day.short;
     btn.title = day.label;
     btn.addEventListener('click', () => { activeDayIndex = i; renderAll(); });
@@ -629,9 +637,8 @@ function renderTabs() {
 // ─── RENDER HEADER ────────────────────────────────────────────────────────────
 function renderHeader() {
   const day = DAYS[activeDayIndex];
-  const isToday = activeDayIndex === jsDay;
   hdrDay.textContent = day.label;
-  hdrDate.textContent = isToday ? formatDate(new Date()) : '— ver día';
+  hdrDate.textContent = formatDate(getPlanDate(activeDayIndex));
   hdrBadge.innerHTML = day.workout
     ? '<div class="workout-badge">Día de entreno</div>'
     : '<div class="rest-badge">Día de descanso</div>';
