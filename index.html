@@ -7,37 +7,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
   <style>
     :root {
-      --bg:         #170913;
-      --bg2:        #24111e;
-      --bg3:        #321929;
-      --border:     rgba(255, 170, 210, 0.14);
-      --border2:    rgba(255, 170, 210, 0.32);
-      --pink:       #ff8fbd;
-      --pink-soft:  #ffd1e6;
-      --pink-dim:   rgba(255, 143, 189, 0.16);
-      --pink-glow:  rgba(255, 143, 189, 0.08);
-      --text:       #fff3f8;
-      --text-dim:   #d8aabd;
-      --text-muted: #8d5f73;
-      --green-tag:  #281b24;
-      --green-text: #f6a6c7;
-      --red-tag:    #32141f;
-      --red-text:   #ff7aa8;
-      --radius:     12px;
+      --bg:         #141006;
+      --bg2:        #211a0b;
+      --bg3:        #2d240f;
+      --border:     rgba(255,214,89,0.16);
+      --border2:    rgba(255,214,89,0.34);
+      --gold:       #ffd34d;
+      --gold-dim:   rgba(255,211,77,0.18);
+      --gold-glow:  rgba(255,211,77,0.09);
+      --text:       #fff6d6;
+      --text-dim:   #d7c88d;
+      --text-muted: #8e7c3f;
+      --green-tag:  #253020;
+      --green-text: #9bd66f;
+      --red-tag:    #2d1f1f;
+      --red-text:   #e07070;
+      --radius:     8px;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
@@ -48,26 +40,21 @@
       overflow-x: hidden;
     }
 
-    /* fondo decorativo */
+    /* ── BACKGROUND TEXTURE ───────────────────────── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 20% -10%, rgba(255, 143, 189, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 90% 100%, rgba(255, 196, 220, 0.08) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 60% at 20% -10%, rgba(255,211,77,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 100%, rgba(255,175,60,0.08) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
 
-    .app {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 16px 80px;
-    }
+    .app { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 0 16px 80px; }
 
+    /* ── HEADER ───────────────────────────────────── */
     header {
       padding: 36px 0 28px;
       border-bottom: 1px solid var(--border);
@@ -79,7 +66,7 @@
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--pink);
+      color: var(--gold);
       margin-bottom: 16px;
     }
 
@@ -95,7 +82,7 @@
       font-size: 56px;
       font-weight: 700;
       line-height: 1;
-      letter-spacing: -1px;
+      letter-spacing: 0;
       color: var(--text);
     }
 
@@ -109,9 +96,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--pink-dim);
-      border: 1px solid rgba(255, 143, 189, 0.35);
-      color: var(--pink);
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -121,18 +108,15 @@
       margin-top: 10px;
     }
 
-    .workout-badge::before {
-      content: '⚡';
-      font-size: 10px;
-    }
+    .workout-badge::before { content: '⚡'; font-size: 10px; }
 
     .rest-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 209, 230, 0.1);
-      border: 1px solid rgba(255, 209, 230, 0.22);
-      color: var(--pink-soft);
+      background: rgba(255,211,77,0.10);
+      border: 1px solid rgba(255,211,77,0.22);
+      color: #f0c94a;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -142,10 +126,7 @@
       margin-top: 10px;
     }
 
-    .rest-badge::before {
-      content: '🌸';
-      font-size: 10px;
-    }
+    .rest-badge::before { content: '🌿'; font-size: 10px; }
 
     .day-totals {
       display: flex;
@@ -175,10 +156,9 @@
       text-transform: uppercase;
     }
 
-    .day-total-item:first-child .day-total-value {
-      color: var(--pink);
-    }
+    .day-total-item:first-child .day-total-value { color: var(--gold); }
 
+    /* ── DAY TABS ─────────────────────────────────── */
     .tabs-wrapper {
       position: sticky;
       top: 0;
@@ -199,9 +179,7 @@
       padding-bottom: 0;
     }
 
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
+    .tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
       flex-shrink: 0;
@@ -220,14 +198,11 @@
       position: relative;
     }
 
-    .tab-btn:hover {
-      color: var(--text-dim);
-      background: var(--pink-glow);
-    }
+    .tab-btn:hover { color: var(--text-dim); background: var(--gold-glow); }
 
     .tab-btn.active {
-      color: var(--pink);
-      background: var(--pink-dim);
+      color: var(--gold);
+      background: var(--gold-dim);
       border-color: var(--border2);
       border-bottom-color: var(--bg);
     }
@@ -240,13 +215,12 @@
       transform: translateX(-50%);
       width: 4px;
       height: 4px;
-      background: var(--pink);
+      background: var(--gold);
       border-radius: 50%;
     }
 
-    .meals-section {
-      padding-top: 28px;
-    }
+    /* ── MEALS ────────────────────────────────────── */
+    .meals-section { padding-top: 28px; }
 
     .meal-card {
       background: var(--bg2);
@@ -254,25 +228,15 @@
       border-radius: var(--radius);
       margin-bottom: 12px;
       overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s;
       animation: slideUp 0.3s ease both;
     }
 
-    .meal-card:hover {
-      border-color: var(--border2);
-      transform: translateY(-1px);
-    }
+    .meal-card:hover { border-color: var(--border2); }
 
     @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .meal-card:nth-child(1) { animation-delay: 0ms; }
@@ -280,7 +244,6 @@
     .meal-card:nth-child(3) { animation-delay: 120ms; }
     .meal-card:nth-child(4) { animation-delay: 180ms; }
     .meal-card:nth-child(5) { animation-delay: 240ms; }
-    .meal-card:nth-child(6) { animation-delay: 300ms; }
 
     .meal-header {
       display: flex;
@@ -290,11 +253,7 @@
       gap: 12px;
     }
 
-    .meal-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .meal-left { display: flex; align-items: center; gap: 12px; }
 
     .meal-icon {
       width: 36px;
@@ -328,7 +287,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 22px;
       font-weight: 600;
-      color: var(--pink);
+      color: var(--gold);
       white-space: nowrap;
     }
 
@@ -345,7 +304,6 @@
       display: flex;
       gap: 8px;
       padding: 0 18px 10px;
-      flex-wrap: wrap;
     }
 
     .macro-pill {
@@ -356,23 +314,9 @@
       letter-spacing: 0.3px;
     }
 
-    .macro-p {
-      background: rgba(255, 143, 189, 0.13);
-      color: #ff9fc8;
-      border: 1px solid rgba(255, 143, 189, 0.26);
-    }
-
-    .macro-c {
-      background: rgba(214, 165, 255, 0.13);
-      color: #d9adff;
-      border: 1px solid rgba(214, 165, 255, 0.24);
-    }
-
-    .macro-f {
-      background: rgba(255, 190, 210, 0.13);
-      color: #ffc0d4;
-      border: 1px solid rgba(255, 190, 210, 0.25);
-    }
+    .macro-p { background: rgba(106,191,138,0.12); color: #6abf8a; border: 1px solid rgba(106,191,138,0.2); }
+    .macro-c { background: rgba(100,160,220,0.12); color: #7ab4e0; border: 1px solid rgba(100,160,220,0.2); }
+    .macro-f { background: rgba(220,160,80,0.12);  color: #daa050; border: 1px solid rgba(220,160,80,0.2); }
 
     .meal-divider {
       height: 1px;
@@ -404,10 +348,11 @@
       font-size: 11px;
     }
 
+    /* ── NOTES ────────────────────────────────────── */
     .day-note {
-      background: var(--pink-glow);
+      background: var(--gold-glow);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--pink);
+      border-left: 3px solid var(--gold);
       border-radius: 0 var(--radius) var(--radius) 0;
       padding: 12px 16px;
       margin-bottom: 20px;
@@ -415,10 +360,9 @@
       color: var(--text-dim);
     }
 
-    .day-note strong {
-      color: var(--pink);
-    }
+    .day-note strong { color: var(--gold); }
 
+    /* ── TIPS SECTION ─────────────────────────────── */
     .tips-section {
       margin-top: 32px;
       padding-top: 24px;
@@ -443,21 +387,20 @@
       color: var(--text-dim);
     }
 
-    .tip-item:last-child {
-      border-bottom: none;
-    }
+    .tip-item:last-child { border-bottom: none; }
 
     .tip-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 18px;
       font-weight: 600;
-      color: var(--pink);
+      color: var(--gold);
       flex-shrink: 0;
       width: 20px;
       line-height: 1;
       margin-top: 1px;
     }
 
+    /* ── FOOTER ───────────────────────────────────── */
     footer {
       margin-top: 40px;
       padding: 20px 0;
@@ -469,29 +412,22 @@
       text-transform: uppercase;
     }
 
+    /* ── RESPONSIVE ───────────────────────────────── */
     @media (max-width: 400px) {
-      .header-day {
-        font-size: 44px;
-      }
-
-      .day-totals {
-        gap: 14px;
-      }
+      .header-day { font-size: 44px; }
+      .day-totals { gap: 14px; }
     }
   </style>
 </head>
-
 <body>
 <div class="app">
 
   <header>
-    <div class="header-brand">Plan nutricional · Recomposición</div>
-
+    <div class="header-brand">Plan nutricional · PDF actualizado</div>
     <div class="header-day-row">
       <div class="header-day" id="hdr-day">—</div>
       <div class="header-date" id="hdr-date">—</div>
     </div>
-
     <div id="hdr-badge"></div>
     <div class="day-totals" id="hdr-totals"></div>
   </header>
@@ -504,736 +440,185 @@
 
   <section class="tips-section">
     <div class="tips-title">Reglas clave</div>
-
-    <div class="tip-item">
-      <span class="tip-num">1</span>
-      <span>Pesa la comida las <strong style="color:var(--text)">2 primeras semanas</strong>. Después ajusta a ojo con las mismas cantidades.</span>
-    </div>
-
-    <div class="tip-item">
-      <span class="tip-num">2</span>
-      <span><strong style="color:var(--text)">Agua:</strong> mínimo 3–4 L/día, especialmente en días de entreno.</span>
-    </div>
-
-    <div class="tip-item">
-      <span class="tip-num">3</span>
-      <span><strong style="color:var(--text)">Creatina:</strong> 5 g/día, da igual la hora. Lo importante es tomarla todos los días.</span>
-    </div>
-
-    <div class="tip-item">
-      <span class="tip-num">4</span>
-      <span>Si no bajas nada en 2 semanas, recorta 150–200 kcal. Si bajas demasiado rápido, sube 150–200 kcal.</span>
-    </div>
-
-    <div class="tip-item">
-      <span class="tip-num">5</span>
-      <span>Pésate 3 veces por semana en ayunas y usa la <strong style="color:var(--text)">media semanal</strong>, no un solo día.</span>
-    </div>
+    <div class="tip-item"><span class="tip-num">1</span><span>Semana construida combinando solo los alimentos y cantidades de los 3 PDF recibidos.</span></div>
+    <div class="tip-item"><span class="tip-num">2</span><span>Las calorías y macros son orientativos porque los PDF no incluyen desglose nutricional.</span></div>
+    <div class="tip-item"><span class="tip-num">3</span><span>Alterna opción base, opción 2 y opción 3 para no repetir exactamente el mismo día.</span></div>
+    <div class="tip-item"><span class="tip-num">4</span><span>Prioriza las comidas con más carbohidrato en los días de entreno y las más saciantes en descanso.</span></div>
+    <div class="tip-item"><span class="tip-num">5</span><span>Si hay indicaciones del profesional, manda siempre el PDF por encima de cualquier ajuste visual de esta web.</span></div>
   </section>
 
-  <footer>Promedio semanal · 2730 kcal · 222g proteína · 255g carbos · 80g grasa</footer>
+  <footer>Promedio semanal aproximado · 1716 kcal · 131g proteína · 111g carbos · 83g grasa</footer>
 
 </div>
 
 <script>
-// datos principales
-const PLAN_START_DATE = new Date(2026, 3, 27); // lunes 27 de abril de 2026
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const PLAN_START_DATE = new Date(2026, 4, 4); // Lunes 4 de mayo de 2026
+
+const BREAKFASTS = {
+  base: { icon: '☀️', name: 'Desayuno · Base PDF', time: '~8:00', kcal: 410, p: 28, c: 36, f: 18,
+    items: ['Yogur Alpro de coco sin azúcar, 125 g','Vegan Isolated Protein, 25 g','Cereal Mix 0% azúcares añadidos, 30 g','Crema de almendras THEWILDBALANCE, 20 g','Fresas, 100 g'] },
+  opcion2: { icon: '☀️', name: 'Desayuno · Opción 2', time: '~8:00', kcal: 285, p: 15, c: 18, f: 18,
+    items: ['Huevo de gallina fresco, 100 g','Tortitas de arroz, 16 g','Aguacate, 50 g'] },
+  opcion3: { icon: '☀️', name: 'Desayuno · Opción 3', time: '~8:00', kcal: 355, p: 28, c: 9, f: 25,
+    items: ['Harina de almendras, 20 g','Vegan Isolated Protein, 20 g','Huevo, 50 g','Mantequilla, 5 g','Erythritol, 0.5 g','Chocolate negro 85%, 10 g','Receta: keto cookies'] }
+};
+
+const LUNCHES = {
+  base: { icon: '🍽️', name: 'Comida · Base PDF', time: '~14:00', kcal: 640, p: 68, c: 25, f: 30,
+    items: ['Huevo, 100 g','Pechuga de pollo, 150 g','Vegetales que desees, 200 g','Pistachos, 25 g','Chocolate negro 85%, 10 g'] },
+  opcion2: { icon: '🍽️', name: 'Comida · Opción 2', time: '~14:00', kcal: 695, p: 45, c: 67, f: 29,
+    items: ['Hamburguesa de ternera y cecina, 160 g','Patata cruda, 200 g','Vegetales que desees, 200 g','Guacamole, 50 g','Naranja, 130 g'] },
+  opcion3: { icon: '🍽️', name: 'Comida · Opción 3', time: '~14:00', kcal: 695, p: 50, c: 16, f: 46,
+    items: ['Salmón, 200 g','Ensalada mixta, 200 g','Aguacate, 50 g','Queso de cabra, 25 g','Chocolate negro 85%, 10 g'] }
+};
+
+const DINNERS = {
+  base: { icon: '🌙', name: 'Cena · Base PDF', time: '~21:00', kcal: 660, p: 35, c: 90, f: 18,
+    items: ['Pulpo, 180 g','Noodles de arroz Hacendado, 70 g','Vegetales que desees, 200 g','Aceite de oliva virgen extra, 15 g','Pera, 120 g'] },
+  opcion2: { icon: '🌙', name: 'Cena · Opción 2', time: '~21:00', kcal: 765, p: 74, c: 53, f: 26,
+    items: ['Lubina, 220 g','Pasta de trigo sarraceno, 60 g','Vegetales salteados, 100 g','Virutas de jamón serrano, 50 g','Pipas de calabaza, 15 g','Infusión, 100 g'] },
+  opcion3: { icon: '🌙', name: 'Cena · Opción 3', time: '~21:00', kcal: 565, p: 41, c: 22, f: 36,
+    items: ['Huevo, 100 g','Caballa, 60 g','Crema de verduras, 300 g','Piñones, 10 g','Yogur Alpro de coco sin azúcar, 125 g','Vegan Isolated Protein, 10 g'] }
+};
+
+function buildDay(config) {
+  const meals = [BREAKFASTS[config.breakfast], LUNCHES[config.lunch], DINNERS[config.dinner]];
+  const totals = meals.reduce((acc, meal) => ({
+    kcal: acc.kcal + meal.kcal,
+    protein: acc.protein + meal.p,
+    carbs: acc.carbs + meal.c,
+    fat: acc.fat + meal.f
+  }), { kcal: 0, protein: 0, carbs: 0, fat: 0 });
+
+  return { ...config, ...totals, meals };
+}
 
 const DAYS = [
-  {
-    key: 'domingo',
-    label: 'Domingo',
-    short: 'Dom',
-    workout: false,
-    note: 'Día de descanso y preparación. Cocina bases para la semana: arroz, patata, pollo, verduras y huevos cocidos. Mantén proteína alta y carbohidrato moderado.',
-    kcal: 2550,
-    protein: 220,
-    carbs: 205,
-    fat: 80,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno',
-        time: '~9:00',
-        kcal: 560,
-        p: 48,
-        c: 45,
-        f: 18,
-        items: [
-          'Tortilla con 2 huevos + 220 g claras',
-          '2 tostadas integrales con tomate natural',
-          '1 kiwi o naranja',
-          'Café solo o con leche'
-        ]
-      },
-      {
-        icon: '🍽️',
-        name: 'Comida',
-        time: '~14:00',
-        kcal: 760,
-        p: 65,
-        c: 60,
-        f: 24,
-        items: [
-          '230 g pollo al horno con limón, ajo y especias',
-          '240 g patata asada',
-          'Verduras al horno: calabacín, cebolla y pimiento',
-          '10 g aceite de oliva virgen extra'
-        ]
-      },
-      {
-        icon: '🍓',
-        name: 'Merienda',
-        time: '~17:30',
-        kcal: 320,
-        p: 32,
-        c: 25,
-        f: 9,
-        items: [
-          '250 g yogur griego 0%',
-          '100 g frutos rojos',
-          '15 g almendras',
-          'Canela'
-        ]
-      },
-      {
-        icon: '🌙',
-        name: 'Cena',
-        time: '~20:30',
-        kcal: 700,
-        p: 55,
-        c: 62,
-        f: 24,
-        items: [
-          '220 g merluza, dorada o lubina',
-          '220 g boniato asado',
-          'Ensalada grande con tomate, pepino, zanahoria y aguacate',
-          '5 g aceite de oliva virgen extra'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~22:30',
-        kcal: 210,
-        p: 20,
-        c: 13,
-        f: 5,
-        items: [
-          '200 g queso fresco batido 0%',
-          'Fresas',
-          'Infusión'
-        ]
-      }
-    ]
-  },
-  {
+  buildDay({
     key: 'lunes',
     label: 'Lunes',
     short: 'Lun',
     workout: true,
-    note: 'Día de entreno. Carbohidratos altos en desayuno, comida y pre-entreno para rendir fuerte. Cena con proteína completa y carbohidrato limpio para recuperar.',
-    kcal: 2860,
-    protein: 220,
-    carbs: 300,
-    fat: 75,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno potente',
-        time: '~7:30',
-        kcal: 650,
-        p: 45,
-        c: 80,
-        f: 16,
-        items: [
-          '75 g avena cocida con 300 ml leche semidesnatada',
-          '30 g proteína whey',
-          '1 plátano',
-          '10 g crema de cacahuete',
-          'Canela'
-        ]
-      },
-      {
-        icon: '🍽️',
-        name: 'Comida',
-        time: '~13:30',
-        kcal: 850,
-        p: 65,
-        c: 95,
-        f: 18,
-        items: [
-          '220 g pechuga de pollo a la plancha',
-          '100 g arroz basmati en crudo',
-          'Brócoli y zanahoria salteados',
-          '10 g aceite de oliva virgen extra',
-          '1 fruta'
-        ]
-      },
-      {
-        icon: '⚡',
-        name: 'Pre-entreno',
-        time: '~17:00',
-        kcal: 420,
-        p: 35,
-        c: 55,
-        f: 7,
-        items: [
-          '250 g yogur griego 0%',
-          '45 g cereales simples o muesli bajo en azúcar',
-          '100 g frutos rojos',
-          '10 g miel'
-        ]
-      },
-      {
-        icon: '🌙',
-        name: 'Cena recuperación',
-        time: '~21:00',
-        kcal: 730,
-        p: 55,
-        c: 60,
-        f: 26,
-        items: [
-          '220 g salmón a la plancha',
-          '260 g patata cocida o asada',
-          'Espárragos o calabacín',
-          'Limón y especias'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~23:00',
-        kcal: 210,
-        p: 20,
-        c: 10,
-        f: 8,
-        items: [
-          '200 g requesón o queso fresco batido',
-          '15 g nueces'
-        ]
-      }
-    ]
-  },
-  {
+    breakfast: 'base',
+    lunch: 'opcion2',
+    dinner: 'base',
+    note: 'Día alto en carbohidrato dentro del PDF: cereal, patata y noodles para empezar fuerte la semana.'
+  }),
+  buildDay({
     key: 'martes',
     label: 'Martes',
     short: 'Mar',
     workout: true,
-    note: 'Día de entreno con platos digestivos. Buena carga de carbohidratos, pero sin comidas pesadas antes de entrenar.',
-    kcal: 2840,
-    protein: 225,
-    carbs: 285,
-    fat: 78,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno salado',
-        time: '~7:30',
-        kcal: 620,
-        p: 48,
-        c: 60,
-        f: 20,
-        items: [
-          '3 tostadas integrales con tomate',
-          '120 g pavo o jamón cocido bajo en grasa',
-          '2 huevos',
-          '1 naranja'
-        ]
-      },
-      {
-        icon: '🍝',
-        name: 'Comida',
-        time: '~13:30',
-        kcal: 870,
-        p: 65,
-        c: 95,
-        f: 22,
-        items: [
-          '95 g pasta integral en crudo',
-          '200 g ternera magra picada o tiras de ternera',
-          'Tomate natural triturado',
-          'Verduras salteadas',
-          '10 g parmesano rallado'
-        ]
-      },
-      {
-        icon: '⚡',
-        name: 'Pre-entreno',
-        time: '~17:00',
-        kcal: 410,
-        p: 35,
-        c: 50,
-        f: 8,
-        items: [
-          'Sándwich integral con 140 g pechuga de pavo',
-          'Queso fresco bajo en grasa',
-          'Tomate natural',
-          '1 plátano'
-        ]
-      },
-      {
-        icon: '🌙',
-        name: 'Cena',
-        time: '~21:00',
-        kcal: 730,
-        p: 57,
-        c: 65,
-        f: 22,
-        items: [
-          '230 g bacalao, merluza o lubina',
-          '80 g cuscús en crudo',
-          'Verduras a la plancha',
-          '5 g aceite de oliva virgen extra'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~23:00',
-        kcal: 210,
-        p: 20,
-        c: 15,
-        f: 6,
-        items: [
-          '200 g yogur griego 0%',
-          'Fresas',
-          '10 g crema de cacahuete'
-        ]
-      }
-    ]
-  },
-  {
+    breakfast: 'opcion2',
+    lunch: 'base',
+    dinner: 'opcion2',
+    note: 'Combinación alta en proteína: pollo al mediodía y lubina por la noche, manteniendo vegetales en ambas comidas.'
+  }),
+  buildDay({
     key: 'miercoles',
     label: 'Miércoles',
     short: 'Mié',
     workout: false,
-    note: 'Descanso activo. Menos carbohidrato, más verdura y comidas saciantes. Ideal para caminar, recuperar y controlar hambre.',
-    kcal: 2500,
-    protein: 220,
-    carbs: 180,
-    fat: 83,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno',
-        time: '~8:00',
-        kcal: 560,
-        p: 50,
-        c: 35,
-        f: 22,
-        items: [
-          '2 huevos + 250 g claras',
-          'Champiñones, espinacas y cebolla',
-          '1 rebanada de pan integral',
-          '1 kiwi'
-        ]
-      },
-      {
-        icon: '🥗',
-        name: 'Comida saciante',
-        time: '~13:30',
-        kcal: 760,
-        p: 65,
-        c: 55,
-        f: 26,
-        items: [
-          'Ensalada grande con 220 g pollo o pavo',
-          '180 g garbanzos cocidos',
-          'Tomate, pepino, zanahoria y canónigos',
-          '10 g aceite de oliva virgen extra',
-          'Vinagre, sal y especias'
-        ]
-      },
-      {
-        icon: '🍎',
-        name: 'Merienda',
-        time: '~17:00',
-        kcal: 330,
-        p: 32,
-        c: 25,
-        f: 10,
-        items: [
-          '250 g queso fresco batido 0%',
-          '1 manzana',
-          '15 g almendras'
-        ]
-      },
-      {
-        icon: '🌙',
-        name: 'Cena ligera',
-        time: '~20:30',
-        kcal: 650,
-        p: 53,
-        c: 55,
-        f: 21,
-        items: [
-          '230 g tortilla de claras con atún: 220 g claras + 1 huevo + 1 lata de atún',
-          '200 g patata cocida',
-          'Ensalada de tomate y pepino',
-          '5 g aceite de oliva virgen extra'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~22:30',
-        kcal: 200,
-        p: 20,
-        c: 10,
-        f: 4,
-        items: [
-          '200 g requesón o queso fresco batido',
-          'Canela'
-        ]
-      }
-    ]
-  },
-  {
+    breakfast: 'opcion3',
+    lunch: 'opcion3',
+    dinner: 'opcion3',
+    note: 'Día más bajo en carbohidrato: usa la opción 3 completa para variar y concentrar grasas saludables.'
+  }),
+  buildDay({
     key: 'jueves',
     label: 'Jueves',
     short: 'Jue',
     workout: true,
-    note: 'Día fuerte de entreno. Más carbohidrato total para rendir y evitar llegar con ansiedad por la noche.',
-    kcal: 2880,
-    protein: 220,
-    carbs: 305,
-    fat: 76,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno dulce',
-        time: '~7:30',
-        kcal: 650,
-        p: 45,
-        c: 80,
-        f: 16,
-        items: [
-          'Bowl con 250 g yogur griego 0%',
-          '65 g avena',
-          '30 g proteína whey',
-          'Fresas o arándanos',
-          '10 g miel'
-        ]
-      },
-      {
-        icon: '🍽️',
-        name: 'Comida',
-        time: '~13:30',
-        kcal: 860,
-        p: 62,
-        c: 95,
-        f: 20,
-        items: [
-          '220 g lomo de cerdo magro o pollo',
-          '100 g arroz jazmín en crudo',
-          'Verduras salteadas estilo wok',
-          '10 g aceite de oliva virgen extra'
-        ]
-      },
-      {
-        icon: '⚡',
-        name: 'Pre-entreno',
-        time: '~17:00',
-        kcal: 430,
-        p: 35,
-        c: 55,
-        f: 8,
-        items: [
-          'Batido con 35 g proteína whey',
-          '300 ml leche semidesnatada',
-          '1 plátano',
-          '20 g avena'
-        ]
-      },
-      {
-        icon: '🌮',
-        name: 'Cena',
-        time: '~21:00',
-        kcal: 730,
-        p: 58,
-        c: 65,
-        f: 24,
-        items: [
-          'Fajitas caseras con 220 g pollo',
-          '2 tortillas integrales',
-          'Pimiento, cebolla y tomate',
-          '40 g guacamole',
-          'Salsa yogur casera'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~23:00',
-        kcal: 210,
-        p: 20,
-        c: 10,
-        f: 8,
-        items: [
-          '200 g queso fresco batido 0%',
-          '15 g nueces'
-        ]
-      }
-    ]
-  },
-  {
+    breakfast: 'base',
+    lunch: 'base',
+    dinner: 'opcion2',
+    note: 'Proteína alta y cena con pasta de trigo sarraceno para recuperar si el entreno cae por la tarde.'
+  }),
+  buildDay({
     key: 'viernes',
     label: 'Viernes',
     short: 'Vie',
     workout: true,
-    note: 'Entreno y cierre de semana. Menú alto en rendimiento, pero con cena tipo burger saludable para que no parezca una dieta aburrida.',
-    kcal: 2820,
-    protein: 220,
-    carbs: 280,
-    fat: 80,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno',
-        time: '~7:30',
-        kcal: 630,
-        p: 48,
-        c: 70,
-        f: 16,
-        items: [
-          'Overnight oats: 70 g avena + 250 g yogur griego 0%',
-          '30 g proteína whey',
-          'Fresas',
-          '10 g crema de cacahuete'
-        ]
-      },
-      {
-        icon: '🍚',
-        name: 'Comida',
-        time: '~13:30',
-        kcal: 850,
-        p: 62,
-        c: 90,
-        f: 22,
-        items: [
-          'Poke bowl casero con 220 g salmón o atún',
-          '90 g arroz en crudo',
-          'Edamame o maíz',
-          'Pepino, zanahoria y aguacate',
-          'Salsa de soja baja en sal'
-        ]
-      },
-      {
-        icon: '⚡',
-        name: 'Pre-entreno',
-        time: '~17:00',
-        kcal: 410,
-        p: 35,
-        c: 50,
-        f: 8,
-        items: [
-          '2 rebanadas de pan integral',
-          '150 g pavo',
-          'Tomate natural',
-          '1 pieza de fruta'
-        ]
-      },
-      {
-        icon: '🍔',
-        name: 'Cena burger fit',
-        time: '~21:00',
-        kcal: 720,
-        p: 55,
-        c: 60,
-        f: 26,
-        items: [
-          'Burger casera con 200 g ternera magra o pollo picado',
-          'Pan brioche o integral',
-          'Queso bajo en grasa',
-          'Patata al horno tipo gajo',
-          'Ensalada simple'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~23:00',
-        kcal: 210,
-        p: 20,
-        c: 10,
-        f: 8,
-        items: [
-          '200 g yogur griego 0%',
-          '15 g almendras'
-        ]
-      }
-    ]
-  },
-  {
+    breakfast: 'opcion2',
+    lunch: 'opcion3',
+    dinner: 'base',
+    note: 'Mezcla equilibrada: desayuno simple, salmón al mediodía y cena con pulpo y noodles para cerrar entreno.'
+  }),
+  buildDay({
     key: 'sabado',
     label: 'Sábado',
     short: 'Sáb',
-    workout: true,
-    note: 'Día flexible, pero bien controlado. Puedes comer fuera, pero la regla es simple: proteína primero, carbohidrato claro y salsas aparte.',
-    kcal: 2700,
-    protein: 210,
-    carbs: 250,
-    fat: 85,
-    meals: [
-      {
-        icon: '☀️',
-        name: 'Desayuno tranquilo',
-        time: '~9:00',
-        kcal: 610,
-        p: 42,
-        c: 58,
-        f: 22,
-        items: [
-          'Tostadas integrales con tomate y aguacate',
-          '2 huevos + 150 g claras',
-          '80 g pavo o jamón cocido',
-          '1 fruta'
-        ]
-      },
-      {
-        icon: '🍽️',
-        name: 'Comida flexible',
-        time: '~14:00',
-        kcal: 850,
-        p: 55,
-        c: 75,
-        f: 30,
-        items: [
-          'Carne o pescado a la brasa, 220–260 g',
-          'Patata, arroz o pan como carbohidrato principal',
-          'Ensalada o verduras',
-          'Salsas aparte',
-          'Evita que el plato principal sean fritos'
-        ]
-      },
-      {
-        icon: '🥤',
-        name: 'Merienda',
-        time: '~17:30',
-        kcal: 350,
-        p: 30,
-        c: 40,
-        f: 10,
-        items: [
-          'Batido con 30 g proteína',
-          '1 plátano',
-          '15 g crema de cacahuete'
-        ]
-      },
-      {
-        icon: '🌙',
-        name: 'Cena',
-        time: '~20:30',
-        kcal: 680,
-        p: 55,
-        c: 67,
-        f: 19,
-        items: [
-          '220 g merluza, pollo o pavo',
-          '250 g patata cocida o boniato',
-          'Verduras a la plancha',
-          '5 g aceite de oliva virgen extra'
-        ]
-      },
-      {
-        icon: '💤',
-        name: 'Pre-sueño',
-        time: '~22:30',
-        kcal: 210,
-        p: 28,
-        c: 10,
-        f: 4,
-        items: [
-          '250 g queso fresco batido 0%',
-          'Canela'
-        ]
-      }
-    ]
-  }
+    workout: false,
+    breakfast: 'opcion3',
+    lunch: 'opcion2',
+    dinner: 'opcion2',
+    note: 'Fin de semana sin inventar extras: mantiene opción 2 en comidas principales y deja las keto cookies por la mañana.'
+  }),
+  buildDay({
+    key: 'domingo',
+    label: 'Domingo',
+    short: 'Dom',
+    workout: false,
+    breakfast: 'base',
+    lunch: 'opcion3',
+    dinner: 'opcion3',
+    note: 'Descanso y cierre de semana: base ligera por la mañana y opciones más grasas/saciantes en comida y cena.'
+  })
 ];
 
-// estado inicial
-let activeDayIndex = 1;
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let activeDayIndex = 0; // Semana entrante: abrir en lunes
 
-// referencias del dom
-const hdrDay = document.getElementById('hdr-day');
-const hdrDate = document.getElementById('hdr-date');
-const hdrBadge = document.getElementById('hdr-badge');
-const hdrTotals = document.getElementById('hdr-totals');
-const tabsBar = document.getElementById('tabs-bar');
+// ─── DOM REFS ─────────────────────────────────────────────────────────────────
+const hdrDay      = document.getElementById('hdr-day');
+const hdrDate     = document.getElementById('hdr-date');
+const hdrBadge    = document.getElementById('hdr-badge');
+const hdrTotals   = document.getElementById('hdr-totals');
+const tabsBar     = document.getElementById('tabs-bar');
 const mealsContainer = document.getElementById('meals-container');
 
-// formatea la fecha visible
+// ─── DATE ─────────────────────────────────────────────────────────────────────
 function formatDate(d) {
-  return d.toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// calcula la fecha según el día seleccionado
 function getPlanDate(dayIndex) {
   const date = new Date(PLAN_START_DATE);
-  date.setDate(PLAN_START_DATE.getDate() + (dayIndex === 0 ? 6 : dayIndex - 1));
+  date.setDate(PLAN_START_DATE.getDate() + dayIndex);
   return date;
 }
 
-// pinta las pestañas
+// ─── RENDER TABS ──────────────────────────────────────────────────────────────
 function renderTabs() {
   tabsBar.innerHTML = '';
-
   DAYS.forEach((day, i) => {
     const btn = document.createElement('button');
     btn.className = 'tab-btn' + (i === activeDayIndex ? ' active' : '');
     btn.textContent = day.short;
     btn.title = day.label;
-
-    btn.addEventListener('click', () => {
-      activeDayIndex = i;
-      renderAll();
-    });
-
+    btn.addEventListener('click', () => { activeDayIndex = i; renderAll(); });
     tabsBar.appendChild(btn);
   });
 }
 
-// pinta la cabecera del día
+// ─── RENDER HEADER ────────────────────────────────────────────────────────────
 function renderHeader() {
   const day = DAYS[activeDayIndex];
-
   hdrDay.textContent = day.label;
   hdrDate.textContent = formatDate(getPlanDate(activeDayIndex));
-
   hdrBadge.innerHTML = day.workout
     ? '<div class="workout-badge">Día de entreno</div>'
     : '<div class="rest-badge">Día de descanso</div>';
-
   hdrTotals.innerHTML = `
-    <div class="day-total-item">
-      <div class="day-total-value">${day.kcal}</div>
-      <div class="day-total-label">kcal</div>
-    </div>
-
-    <div class="day-total-item">
-      <div class="day-total-value">${day.protein}g</div>
-      <div class="day-total-label">Proteína</div>
-    </div>
-
-    <div class="day-total-item">
-      <div class="day-total-value">${day.carbs}g</div>
-      <div class="day-total-label">Carbos</div>
-    </div>
-
-    <div class="day-total-item">
-      <div class="day-total-value">${day.fat}g</div>
-      <div class="day-total-label">Grasa</div>
-    </div>
+    <div class="day-total-item"><div class="day-total-value">${day.kcal}</div><div class="day-total-label">kcal</div></div>
+    <div class="day-total-item"><div class="day-total-value">${day.protein}g</div><div class="day-total-label">Proteína</div></div>
+    <div class="day-total-item"><div class="day-total-value">${day.carbs}g</div><div class="day-total-label">Carbos</div></div>
+    <div class="day-total-item"><div class="day-total-value">${day.fat}g</div><div class="day-total-label">Grasa</div></div>
   `;
 }
 
-// pinta las comidas del día
+// ─── RENDER MEALS ─────────────────────────────────────────────────────────────
 function renderMeals() {
   const day = DAYS[activeDayIndex];
   let html = '';
@@ -1248,24 +633,19 @@ function renderMeals() {
         <div class="meal-header">
           <div class="meal-left">
             <div class="meal-icon">${meal.icon}</div>
-
             <div>
               <div class="meal-name">${meal.name}</div>
               <div class="meal-time">${meal.time}</div>
             </div>
           </div>
-
           <div class="meal-kcal">${meal.kcal}<span>kcal</span></div>
         </div>
-
         <div class="macros-bar">
           <span class="macro-pill macro-p">P ${meal.p}g</span>
           <span class="macro-pill macro-c">C ${meal.c}g</span>
           <span class="macro-pill macro-f">G ${meal.f}g</span>
         </div>
-
         <div class="meal-divider"></div>
-
         <div class="meal-items">
           ${meal.items.map(i => `<div class="meal-item">${i}</div>`).join('')}
         </div>
@@ -1276,19 +656,15 @@ function renderMeals() {
   mealsContainer.innerHTML = html;
 }
 
-// actualiza toda la interfaz
+// ─── RENDER ALL ───────────────────────────────────────────────────────────────
 function renderAll() {
   renderHeader();
   renderTabs();
   renderMeals();
-
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// inicia la app
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 renderAll();
 </script>
 </body>

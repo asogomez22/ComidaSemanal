@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --bg:#0a0e0c; --bg2:#111710; --bg3:#1a2118; --bg4:#222d20;
-      --border:rgba(150,200,140,.1); --border2:rgba(150,200,140,.22);
-      --gold:#c9a84c; --gold-dim:rgba(201,168,76,.12);
-      --green:#4caf7d; --green-dim:rgba(76,175,125,.12);
+      --bg:#141006; --bg2:#211a0b; --bg3:#2d240f; --bg4:#3a2d12;
+      --border:rgba(255,214,89,.14); --border2:rgba(255,214,89,.30);
+      --gold:#ffd34d; --gold-dim:rgba(255,211,77,.16);
+      --green:#ffd34d; --green-dim:rgba(255,211,77,.16);
       --red:#e05555; --red-dim:rgba(224,85,85,.12);
-      --text:#ecf0e8; --text-dim:#7a9070; --text-muted:#3d5038;
-      --input-bg:#0f1a0e; --radius:10px;
+      --text:#fff6d6; --text-dim:#d7c88d; --text-muted:#8e7c3f;
+      --input-bg:#1a1408; --radius:8px;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--text);font-family:'Karla',sans-serif;min-height:100vh}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 0% 0%,rgba(76,175,125,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 0% 0%,rgba(255,211,77,.10) 0%,transparent 60%);pointer-events:none;z-index:0}
 
     /* ── LOGIN ── */
     #login-screen{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center}
@@ -47,7 +47,7 @@
     .day-nav-btn{background:transparent;border:1px solid transparent;color:var(--text-dim);font-family:'Karla',sans-serif;font-size:13px;font-weight:500;padding:10px 12px;border-radius:8px;cursor:pointer;transition:all .18s;text-align:left;white-space:nowrap;display:flex;align-items:center;gap:8px;width:100%}
     @media(max-width:700px){.day-nav-btn{width:auto}}
     .day-nav-btn:hover{background:var(--bg3);color:var(--text)}
-    .day-nav-btn.active{background:var(--green-dim);border-color:rgba(76,175,125,.25);color:var(--green)}
+    .day-nav-btn.active{background:var(--green-dim);border-color:rgba(255,211,77,.32);color:var(--green)}
     .day-nav-btn .badge{font-size:9px;padding:2px 6px;border-radius:10px;background:var(--gold-dim);color:var(--gold);margin-left:auto;flex-shrink:0}
     @media(max-width:700px){.day-nav-btn .badge{display:none}}
     .sidebar-footer{padding:16px 20px 0;margin-top:auto}
