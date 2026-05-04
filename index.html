@@ -362,7 +362,7 @@
 
     .day-note strong { color: var(--gold); }
 
-    /* ── TIPS SECTION ─────────────────────────────── */
+    /* ── TIPS SECTION ────────────────────────────── */
     .tips-section {
       margin-top: 32px;
       padding-top: 24px;
@@ -442,17 +442,17 @@
     <div class="tips-title">Reglas clave</div>
     <div class="tip-item"><span class="tip-num">1</span><span>Semana construida combinando solo los alimentos y cantidades de los 3 PDF recibidos.</span></div>
     <div class="tip-item"><span class="tip-num">2</span><span>Las calorías y macros son orientativos porque los PDF no incluyen desglose nutricional.</span></div>
-    <div class="tip-item"><span class="tip-num">3</span><span>Alterna opción base, opción 2 y opción 3 para no repetir exactamente el mismo día.</span></div>
+    <div class="tip-item"><span class="tip-num">3</span><span>Comidas y cenas quedan rotadas: ningún plato principal se repite durante la semana.</span></div>
     <div class="tip-item"><span class="tip-num">4</span><span>Prioriza las comidas con más carbohidrato en los días de entreno y las más saciantes en descanso.</span></div>
     <div class="tip-item"><span class="tip-num">5</span><span>Si hay indicaciones del profesional, manda siempre el PDF por encima de cualquier ajuste visual de esta web.</span></div>
   </section>
 
-  <footer>Promedio semanal aproximado · 1716 kcal · 131g proteína · 111g carbos · 83g grasa</footer>
+  <footer>Promedio semanal aproximado · 1683 kcal · 131g proteína · 113g carbos · 80g grasa</footer>
 
 </div>
 
 <script>
-// ─── DATA ─────────────────────────────────────────────────────────────────────
+// ─── DATA ────────────────────────────────────────────────────────────────────
 const PLAN_START_DATE = new Date(2026, 4, 4); // Lunes 4 de mayo de 2026
 
 const BREAKFASTS = {
@@ -465,21 +465,37 @@ const BREAKFASTS = {
 };
 
 const LUNCHES = {
-  base: { icon: '🍽️', name: 'Comida · Base PDF', time: '~14:00', kcal: 640, p: 68, c: 25, f: 30,
+  polloPistacho: { icon: '🍽️', name: 'Comida · Pollo, huevo y pistachos', time: '~14:00', kcal: 640, p: 68, c: 25, f: 30,
     items: ['Huevo, 100 g','Pechuga de pollo, 150 g','Vegetales que desees, 200 g','Pistachos, 25 g','Chocolate negro 85%, 10 g'] },
-  opcion2: { icon: '🍽️', name: 'Comida · Opción 2', time: '~14:00', kcal: 695, p: 45, c: 67, f: 29,
+  terneraPatata: { icon: '🍽️', name: 'Comida · Ternera, patata y guacamole', time: '~14:00', kcal: 695, p: 45, c: 67, f: 29,
     items: ['Hamburguesa de ternera y cecina, 160 g','Patata cruda, 200 g','Vegetales que desees, 200 g','Guacamole, 50 g','Naranja, 130 g'] },
-  opcion3: { icon: '🍽️', name: 'Comida · Opción 3', time: '~14:00', kcal: 695, p: 50, c: 16, f: 46,
-    items: ['Salmón, 200 g','Ensalada mixta, 200 g','Aguacate, 50 g','Queso de cabra, 25 g','Chocolate negro 85%, 10 g'] }
+  salmonCabra: { icon: '🍽️', name: 'Comida · Salmón, ensalada y cabra', time: '~14:00', kcal: 695, p: 50, c: 16, f: 46,
+    items: ['Salmón, 200 g','Ensalada mixta, 200 g','Aguacate, 50 g','Queso de cabra, 25 g','Chocolate negro 85%, 10 g'] },
+  polloPatata: { icon: '🍽️', name: 'Comida · Pollo con patata y vegetales', time: '~14:00', kcal: 705, p: 68, c: 61, f: 22,
+    items: ['Pechuga de pollo, 150 g','Patata cruda, 200 g','Vegetales que desees, 200 g','Pistachos, 25 g'] },
+  terneraEnsalada: { icon: '🍽️', name: 'Comida · Ternera con ensalada y naranja', time: '~14:00', kcal: 620, p: 45, c: 33, f: 33,
+    items: ['Hamburguesa de ternera y cecina, 160 g','Ensalada mixta, 200 g','Guacamole, 50 g','Naranja, 130 g','Chocolate negro 85%, 10 g'] },
+  salmonNaranja: { icon: '🍽️', name: 'Comida · Salmón con aguacate y naranja', time: '~14:00', kcal: 670, p: 49, c: 31, f: 40,
+    items: ['Salmón, 200 g','Vegetales que desees, 200 g','Aguacate, 50 g','Naranja, 130 g'] },
+  polloHuevoEnsalada: { icon: '🍽️', name: 'Comida · Pollo, huevo y guacamole', time: '~14:00', kcal: 660, p: 76, c: 22, f: 28,
+    items: ['Huevo, 100 g','Pechuga de pollo, 150 g','Ensalada mixta, 200 g','Guacamole, 50 g'] }
 };
 
 const DINNERS = {
-  base: { icon: '🌙', name: 'Cena · Base PDF', time: '~21:00', kcal: 660, p: 35, c: 90, f: 18,
+  pulpoNoodles: { icon: '🌙', name: 'Cena · Pulpo con noodles y pera', time: '~21:00', kcal: 660, p: 35, c: 90, f: 18,
     items: ['Pulpo, 180 g','Noodles de arroz Hacendado, 70 g','Vegetales que desees, 200 g','Aceite de oliva virgen extra, 15 g','Pera, 120 g'] },
-  opcion2: { icon: '🌙', name: 'Cena · Opción 2', time: '~21:00', kcal: 765, p: 74, c: 53, f: 26,
+  lubinaSarraceno: { icon: '🌙', name: 'Cena · Lubina con trigo sarraceno', time: '~21:00', kcal: 765, p: 74, c: 53, f: 26,
     items: ['Lubina, 220 g','Pasta de trigo sarraceno, 60 g','Vegetales salteados, 100 g','Virutas de jamón serrano, 50 g','Pipas de calabaza, 15 g','Infusión, 100 g'] },
-  opcion3: { icon: '🌙', name: 'Cena · Opción 3', time: '~21:00', kcal: 565, p: 41, c: 22, f: 36,
-    items: ['Huevo, 100 g','Caballa, 60 g','Crema de verduras, 300 g','Piñones, 10 g','Yogur Alpro de coco sin azúcar, 125 g','Vegan Isolated Protein, 10 g'] }
+  caballaCrema: { icon: '🌙', name: 'Cena · Caballa, huevo y crema', time: '~21:00', kcal: 565, p: 41, c: 22, f: 36,
+    items: ['Huevo, 100 g','Caballa, 60 g','Crema de verduras, 300 g','Piñones, 10 g','Yogur Alpro de coco sin azúcar, 125 g','Vegan Isolated Protein, 10 g'] },
+  pulpoCrema: { icon: '🌙', name: 'Cena · Pulpo con crema de verduras', time: '~21:00', kcal: 600, p: 35, c: 38, f: 31,
+    items: ['Pulpo, 180 g','Crema de verduras, 300 g','Piñones, 10 g','Aceite de oliva virgen extra, 15 g','Pera, 120 g'] },
+  lubinaNoodles: { icon: '🌙', name: 'Cena · Lubina con noodles y vegetales', time: '~21:00', kcal: 735, p: 67, c: 82, f: 19,
+    items: ['Lubina, 220 g','Noodles de arroz Hacendado, 70 g','Vegetales que desees, 200 g','Aceite de oliva virgen extra, 15 g'] },
+  caballaSarraceno: { icon: '🌙', name: 'Cena · Caballa con trigo sarraceno', time: '~21:00', kcal: 650, p: 44, c: 55, f: 34,
+    items: ['Caballa, 60 g','Pasta de trigo sarraceno, 60 g','Vegetales salteados, 100 g','Huevo, 100 g','Infusión, 100 g'] },
+  huevoPulpoYogur: { icon: '🌙', name: 'Cena · Pulpo, huevo y yogur proteico', time: '~21:00', kcal: 610, p: 50, c: 32, f: 30,
+    items: ['Pulpo, 180 g','Huevo, 100 g','Vegetales que desees, 200 g','Yogur Alpro de coco sin azúcar, 125 g','Vegan Isolated Protein, 10 g','Pipas de calabaza, 15 g'] }
 };
 
 function buildDay(config) {
@@ -501,8 +517,8 @@ const DAYS = [
     short: 'Lun',
     workout: true,
     breakfast: 'base',
-    lunch: 'opcion2',
-    dinner: 'base',
+    lunch: 'terneraPatata',
+    dinner: 'pulpoNoodles',
     note: 'Día alto en carbohidrato dentro del PDF: cereal, patata y noodles para empezar fuerte la semana.'
   }),
   buildDay({
@@ -511,8 +527,8 @@ const DAYS = [
     short: 'Mar',
     workout: true,
     breakfast: 'opcion2',
-    lunch: 'base',
-    dinner: 'opcion2',
+    lunch: 'polloPistacho',
+    dinner: 'lubinaSarraceno',
     note: 'Combinación alta en proteína: pollo al mediodía y lubina por la noche, manteniendo vegetales en ambas comidas.'
   }),
   buildDay({
@@ -521,9 +537,9 @@ const DAYS = [
     short: 'Mié',
     workout: false,
     breakfast: 'opcion3',
-    lunch: 'opcion3',
-    dinner: 'opcion3',
-    note: 'Día más bajo en carbohidrato: usa la opción 3 completa para variar y concentrar grasas saludables.'
+    lunch: 'salmonCabra',
+    dinner: 'caballaCrema',
+    note: 'Día más bajo en carbohidrato: salmón al mediodía y cena de caballa con crema para concentrar grasas saludables.'
   }),
   buildDay({
     key: 'jueves',
@@ -531,9 +547,9 @@ const DAYS = [
     short: 'Jue',
     workout: true,
     breakfast: 'base',
-    lunch: 'base',
-    dinner: 'opcion2',
-    note: 'Proteína alta y cena con pasta de trigo sarraceno para recuperar si el entreno cae por la tarde.'
+    lunch: 'polloPatata',
+    dinner: 'lubinaNoodles',
+    note: 'Proteína alta y doble apoyo de carbohidrato con patata y noodles si el entreno cae por la tarde.'
   }),
   buildDay({
     key: 'viernes',
@@ -541,9 +557,9 @@ const DAYS = [
     short: 'Vie',
     workout: true,
     breakfast: 'opcion2',
-    lunch: 'opcion3',
-    dinner: 'base',
-    note: 'Mezcla equilibrada: desayuno simple, salmón al mediodía y cena con pulpo y noodles para cerrar entreno.'
+    lunch: 'terneraEnsalada',
+    dinner: 'pulpoCrema',
+    note: 'Mezcla más saciante: ternera con ensalada al mediodía y pulpo con crema de verduras por la noche.'
   }),
   buildDay({
     key: 'sabado',
@@ -551,9 +567,9 @@ const DAYS = [
     short: 'Sáb',
     workout: false,
     breakfast: 'opcion3',
-    lunch: 'opcion2',
-    dinner: 'opcion2',
-    note: 'Fin de semana sin inventar extras: mantiene opción 2 en comidas principales y deja las keto cookies por la mañana.'
+    lunch: 'salmonNaranja',
+    dinner: 'caballaSarraceno',
+    note: 'Fin de semana sin inventar extras: salmón con naranja y cena distinta con caballa y trigo sarraceno.'
   }),
   buildDay({
     key: 'domingo',
@@ -561,9 +577,9 @@ const DAYS = [
     short: 'Dom',
     workout: false,
     breakfast: 'base',
-    lunch: 'opcion3',
-    dinner: 'opcion3',
-    note: 'Descanso y cierre de semana: base ligera por la mañana y opciones más grasas/saciantes en comida y cena.'
+    lunch: 'polloHuevoEnsalada',
+    dinner: 'huevoPulpoYogur',
+    note: 'Descanso y cierre de semana: comida proteica con pollo y huevo, y cena suave con pulpo y yogur proteico.'
   })
 ];
 
@@ -578,7 +594,7 @@ const hdrTotals   = document.getElementById('hdr-totals');
 const tabsBar     = document.getElementById('tabs-bar');
 const mealsContainer = document.getElementById('meals-container');
 
-// ─── DATE ─────────────────────────────────────────────────────────────────────
+// ─── DATE ────────────────────────────────────────────────────────────────────
 function formatDate(d) {
   return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 }
@@ -618,7 +634,7 @@ function renderHeader() {
   `;
 }
 
-// ─── RENDER MEALS ─────────────────────────────────────────────────────────────
+// ─── RENDER MEALS ────────────────────────────────────────────────────────────
 function renderMeals() {
   const day = DAYS[activeDayIndex];
   let html = '';
@@ -664,7 +680,7 @@ function renderAll() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
+// ─── INIT ────────────────────────────────────────────────────────────────────
 renderAll();
 </script>
 </body>
